@@ -23,4 +23,6 @@ background = "#F2EEDE"
 foreground = "#000000"
 
 [font.normal]
-family = "Courier New"
+#family = "Courier New"
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
