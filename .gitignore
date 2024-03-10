@@ -1,2 +1,3 @@
 dot_config/nvim/ftplugin/java-debug
 dot_config/nvim/ftplugin/vscode-java-test
+dot_config/aerc/*_password.txt
