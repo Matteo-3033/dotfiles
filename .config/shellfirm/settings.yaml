@@ -1,0 +1,9 @@
+---
+challenge: "Yes"
+includes:
+  - base
+  - fs
+  - git
+ignores_patterns_ids:
+  - "base:shutdown_machine"
+deny_patterns_ids: []
