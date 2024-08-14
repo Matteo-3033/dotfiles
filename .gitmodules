@@ -10,9 +10,6 @@
 [submodule ".tmux/plugins/tmux-resurrect"]
 	path = .tmux/plugins/tmux-resurrect
 	url = git@github.com:tmux-plugins/tmux-resurrect.git
-[submodule "ohmyzsh"]
-	path = ohmyzsh
-	url = git@github.com:ohmyzsh/ohmyzsh.git
 [submodule ".oh-my-zsh/custom/plugins/autoupdate"]
 	path = .oh-my-zsh/custom/plugins/autoupdate
 	url = git@github.com:TamCore/autoupdate-oh-my-zsh-plugins
