@@ -1,0 +1,9 @@
+[submodule ".config/nvim/ftplugin/eclipse.jdt.ls"]
+	path = .config/nvim/ftplugin/eclipse.jdt.ls
+	url = git@github.com:eclipse-jdtls/eclipse.jdt.ls.git
+[submodule ".config/nvim/ftplugin/java-debug"]
+	path = .config/nvim/ftplugin/java-debug
+	url = git@github.com:microsoft/java-debug
+[submodule ".config/nvim/ftplugin/vscode-java-test"]
+	path = .config/nvim/ftplugin/vscode-java-test
+	url = git@github.com:microsoft/vscode-java-test
