@@ -10,3 +10,21 @@
 [submodule ".tmux/plugins/tmux-resurrect"]
 	path = .tmux/plugins/tmux-resurrect
 	url = git@github.com:tmux-plugins/tmux-resurrect.git
+[submodule "ohmyzsh"]
+	path = ohmyzsh
+	url = git@github.com:ohmyzsh/ohmyzsh.git
+[submodule ".oh-my-zsh/custom/plugins/autoupdate"]
+	path = .oh-my-zsh/custom/plugins/autoupdate
+	url = git@github.com:TamCore/autoupdate-oh-my-zsh-plugins
+[submodule ".oh-my-zsh/custom/plugins/fzf-tab"]
+	path = .oh-my-zsh/custom/plugins/fzf-tab
+	url = git@github.com:Aloxaf/fzf-tab
+[submodule ".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
+	path = .oh-my-zsh/custom/plugins/zsh-autosuggestions
+	url = git@github.com:zsh-users/zsh-autosuggestions
+[submodule ".oh-my-zsh/custom/plugins/zsh-nvm"]
+	path = .oh-my-zsh/custom/plugins/zsh-nvm
+	url = git@github.com:lukechilds/zsh-nvm
+[submodule ".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
+	path = .oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
