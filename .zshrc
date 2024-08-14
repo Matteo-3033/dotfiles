@@ -83,3 +83,4 @@ source ~/.config/fzf/fzf.sh
 eval "$(zoxide init zsh --cmd cd)"
 
 alias open="xdg-open"
+neofetch
