@@ -7,3 +7,6 @@
 [submodule ".config/nvim/ftplugin/vscode-java-test"]
 	path = .config/nvim/ftplugin/vscode-java-test
 	url = git@github.com:microsoft/vscode-java-test
+[submodule ".tmux/plugins/tmux-resurrect"]
+	path = .tmux/plugins/tmux-resurrect
+	url = git@github.com:tmux-plugins/tmux-resurrect.git
