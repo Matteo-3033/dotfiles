@@ -1,8 +1,0 @@
----
-challenge: Math
-includes:
-  - base
-  - fs
-  - git
-ignores_patterns_ids: []
-deny_patterns_ids: []
