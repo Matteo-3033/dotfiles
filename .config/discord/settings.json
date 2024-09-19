@@ -2,5 +2,7 @@
   "IS_MAXIMIZED": true,
   "IS_MINIMIZED": false,
   "chromiumSwitches": {},
-  "SKIP_HOST_UPDATE": true
+  "SKIP_HOST_UPDATE": true,
+  "OPEN_ON_STARTUP": false,
+  "MINIMIZE_TO_TRAY": true
 }
