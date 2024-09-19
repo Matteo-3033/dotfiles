@@ -25,6 +25,7 @@
 - ripgrep: for text searching
 - xclip: clipboard managment
 - lazygit: git cli
+- shellfirm: dangerous commands warning
 - A nerd font
 
 ## Installation:
