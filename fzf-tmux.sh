@@ -1,1 +1,0 @@
-.config/fzf/fzf-tmux.sh
