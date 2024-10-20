@@ -17,18 +17,23 @@ return {
             dap.listeners.before.launch.dapui_config = function()
                 dapui.open()
             end
-            dap.listeners.before.event_terminated.dapui_config = function()
-                dapui.close()
-            end
-            dap.listeners.before.event_exited.dapui_config = function()
-                dapui.close()
-            end
+            -- dap.listeners.before.event_terminated.dapui_config = function()
+            --     dapui.close()
+            -- end
+            -- dap.listeners.before.event_exited.dapui_config = function()
+            --     dapui.close()
+            -- end
 
             vim.keymap.set("n", "<Leader>db", ":DapToggleBreakpoint<CR>")
             vim.keymap.set("n", "<Leader>dc", ":DapContinue<CR>")
             vim.keymap.set("n", "<Leader>dt", ":DapTerminate<CR>")
             vim.keymap.set("n", "<Leader>do", ":DapStepOver<CR>")
-
+            vim.api.nvim_set_keymap(
+                "n",
+                "<Leader>dd",
+                ':lua require("dapui").close()<CR>',
+                { noremap = true, silent = true }
+            )
             dap.adapters.lldb = {
                 type = "executable",
                 command = "/usr/bin/lldb-vscode",
