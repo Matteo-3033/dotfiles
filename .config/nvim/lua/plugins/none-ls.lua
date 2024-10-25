@@ -10,7 +10,17 @@ return {
 				null_ls.builtins.formatting.isort,
 				null_ls.builtins.formatting.clang_format,
 				null_ls.builtins.formatting.prettier.with({
-					filetypes = { "javascript", "typescript", "json", "yaml", "html", "css", "markdown", "json" },
+					filetypes = {
+						"javascript",
+						"typescript",
+						"json",
+						"yaml",
+						"html",
+						"css",
+						"markdown",
+						"json",
+						"javascriptreact",
+					},
 				}),
 				-- diagnostics
 				null_ls.builtins.diagnostics.mypy.with({
