@@ -35,16 +35,6 @@ export EDITOR="nvim"
 export ARCHFLAGS="-arch x86_64"
 export NVM_LAZY_LOAD=true
 
-lf_enhanced() {
-	export LF_TEMPDIR="$(mktemp -d -t lf-XXXXXX)"
-
-	cd "$(command lf -print-last-dir "$@")"
-
-	rm -rf "$LF_TEMPDIR"
-	unset LF_TEMPDIR
-}
-alias lf=lf_enhanced
-
 # zsh completions
 autoload -U compinit
 compinit

@@ -11,7 +11,7 @@ super + q
 
 # Terminal emulator
 super + Return
-	alacritty
+    kitty	
 
 # Program launcher
 super + @space
