@@ -1,100 +1,102 @@
-version = 2
-final_space = true
 console_title_template = '{{ .Shell }} in {{ .Folder }}'
-disable_notice = true
+version = 3
+final_space = true
+
+[palette]
+  green = '#5fff5f'
+  grey = '#cccccc'
+  orange = '#ffaf00'
+  red = '#ff5f5f'
+  white = '#ffffff'
+  yellow = '#ffff5f'
+
+[secondary_prompt]
+  template = '❯❯ '
+  foreground = 'magenta'
+  background = 'transparent'
+
+[transient_prompt]
+  template = '❯ '
+  background = 'transparent'
+  foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}magenta{{end}}']
 
 [[blocks]]
   type = 'prompt'
   alignment = 'left'
 
-
   [[blocks.segments]]
-    type = "battery"
-    style = "plain"
-    foreground = "red"
-    background = "transparent"
-    template = " {{ if not .Error }}{{ if or (gt .Percentage 99) (and (eq .State.String \"Discharging\") (le .Percentage 10)) }}{{ .Icon }}{{ .Percentage }}% |{{ end }}{{ end }}"
+    template = ' {{ if not .Error }}{{ if or (gt .Percentage 99) (and (eq .State.String "Discharging") (le .Percentage 10)) }}{{ .Icon }}{{ .Percentage }}% |{{ end }}{{ end }}'
+    foreground = 'red'
+    background = 'transparent'
+    type = 'battery'
+    style = 'plain'
 
     [blocks.segments.properties]
-      charged_icon = "󰁹 "
-      discharging_icon = "󰂃 "
-      not_charging_icon = "󰂃 "
-
+      charged_icon = '󰁹 '
+      discharging_icon = '󰂃 '
+      not_charging_icon = '󰂃 '
 
   [[blocks.segments]]
+    template = ' {{if not .Writable }}󰌾 {{ end }}{{ .Path }}'
+    foreground = 'blue'
+    background = 'transparent'
     type = 'path'
     style = 'plain'
-    template = ' {{if not .Writable }}󰌾 {{ end }}{{ .Path }}'
-    background = 'transparent'
-    foreground = 'blue'
-    Text = ''
-    Duration = 0
-    NameLength = 0
 
     [blocks.segments.properties]
-      style = 'agnoster_short'
       max_depth = 2
-
+      style = 'agnoster_short'
 
   [[blocks.segments]]
+    template = ' on <p:white>{{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}[{{ .Working.String }}{{ .Staging.String }}]{{ end }}</>'
+    foreground = 'p:grey'
+    background = 'transparent'
     type = 'git'
     style = 'plain'
-    template = ' on <p:white>{{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}[{{ .Working.String }}{{ .Staging.String }}]{{ end }}</>'
-    background = 'transparent'
-    foreground = 'p:grey'
-    Text = ''
-    Duration = 0
-    NameLength = 0
 
     [blocks.segments.properties]
       branch_icon = ' '
       commit_icon = '@'
       fetch_status = true
 
-
   [[blocks.segments]]
+    template = ' via <p:green> {{ .Full }}</>'
+    foreground = 'p:grey'
+    background = 'transparent'
     type = 'node'
     style = 'plain'
-    background = 'transparent'
-    foreground = 'p:grey'
-    template = " via <p:green> {{ .Full }}</>"
 
   [[blocks.segments]]
+    template = ' via <p:red> {{ .Full }}</>'
+    foreground = 'p:grey'
+    background = 'transparent'
     type = 'java'
     style = 'plain'
-    background = 'transparent'
-    foreground = 'p:grey'
-    template = " via <p:red> {{ .Full }}</>"
 
   [[blocks.segments]]
+    template = ' via <p:orange><b>K</b> {{ .Full }}</>'
+    foreground = 'p:grey'
+    background = 'transparent'
     type = 'kotlin'
     style = 'plain'
-    background = 'transparent'
-    foreground = 'p:grey'
-    template = " via <p:orange><b>K</b> {{ .Full }}</>"
 
   [[blocks.segments]]
+    template = ' via <p:yellow> {{ .Full }} ({{ if .Venv }}{{ .Venv }}{{ end }})</>'
+    foreground = 'p:grey'
+    background = 'transparent'
     type = 'python'
     style = 'plain'
-    template = " via <p:yellow> {{ .Full }} ({{ if .Venv }}{{ .Venv }}{{ end }})</>"
-    background = 'transparent'
-    foreground = 'p:grey'
-
 
 [[blocks]]
   type = 'rprompt'
   overflow = 'hidden'
 
   [[blocks.segments]]
+    template = ' {{ .FormattedMs }} '
+    foreground = 'yellow'
+    background = 'transparent'
     type = 'executiontime'
     style = 'plain'
-    template = ' {{ .FormattedMs }} '
-    background = 'transparent'
-    foreground = 'yellow'
-    Text = ''
-    Duration = 0
-    NameLength = 0
-
 
 [[blocks]]
   type = 'prompt'
@@ -102,38 +104,8 @@ disable_notice = true
   newline = true
 
   [[blocks.segments]]
+    template = '❯'
+    background = 'transparent'
     type = 'text'
     style = 'plain'
     foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}magenta{{end}}']
-    template = '❯'
-    background = 'transparent'
-    foreground = ''
-    Text = ''
-    Duration = 0
-    NameLength = 0
-
-
-[transient_prompt]
-  foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}magenta{{end}}']
-  template = '❯ '
-  background = 'transparent'
-  foreground = ''
-  Text = ''
-  Duration = 0
-  NameLength = 0
-
-[secondary_prompt]
-  template = '❯❯ '
-  background = 'transparent'
-  foreground = 'magenta'
-  Text = ''
-  Duration = 0
-  NameLength = 0
-
-[palette]
-  grey = '#cccccc'
-  orange = '#ffaf00'
-  red = '#ff5f5f'
-  green = '#5fff5f'
-  yellow = '#ffff5f'
-  white = '#ffffff'

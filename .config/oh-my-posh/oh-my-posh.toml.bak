@@ -1,15 +1,30 @@
+version = 2
 final_space = true
 console_title_template = '{{ .Shell }} in {{ .Folder }}'
+disable_notice = true
 
 [[blocks]]
   type = 'prompt'
   alignment = 'left'
-  newline = false 
+
+
+  [[blocks.segments]]
+    type = "battery"
+    style = "plain"
+    foreground = "red"
+    background = "transparent"
+    template = " {{ if not .Error }}{{ if or (gt .Percentage 99) (and (eq .State.String \"Discharging\") (le .Percentage 10)) }}{{ .Icon }}{{ .Percentage }}% |{{ end }}{{ end }}"
+
+    [blocks.segments.properties]
+      charged_icon = "󰁹 "
+      discharging_icon = "󰂃 "
+      not_charging_icon = "󰂃 "
+
 
   [[blocks.segments]]
     type = 'path'
     style = 'plain'
-    template = ' {{ .Path }} '
+    template = ' {{if not .Writable }}󰌾 {{ end }}{{ .Path }}'
     background = 'transparent'
     foreground = 'blue'
     Text = ''
@@ -17,12 +32,14 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     NameLength = 0
 
     [blocks.segments.properties]
-      style = 'full'
+      style = 'agnoster_short'
+      max_depth = 2
+
 
   [[blocks.segments]]
     type = 'git'
     style = 'plain'
-    template = ' {{ .HEAD }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }} '
+    template = ' on <p:white>{{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}[{{ .Working.String }}{{ .Staging.String }}]{{ end }}</>'
     background = 'transparent'
     foreground = 'p:grey'
     Text = ''
@@ -30,9 +47,39 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     NameLength = 0
 
     [blocks.segments.properties]
-      branch_icon = ''
+      branch_icon = ' '
       commit_icon = '@'
       fetch_status = true
+
+
+  [[blocks.segments]]
+    type = 'node'
+    style = 'plain'
+    background = 'transparent'
+    foreground = 'p:grey'
+    template = " via <p:green> {{ .Full }}</>"
+
+  [[blocks.segments]]
+    type = 'java'
+    style = 'plain'
+    background = 'transparent'
+    foreground = 'p:grey'
+    template = " via <p:red> {{ .Full }}</>"
+
+  [[blocks.segments]]
+    type = 'kotlin'
+    style = 'plain'
+    background = 'transparent'
+    foreground = 'p:grey'
+    template = " via <p:orange><b>K</b> {{ .Full }}</>"
+
+  [[blocks.segments]]
+    type = 'python'
+    style = 'plain'
+    template = " via <p:yellow> {{ .Full }} ({{ if .Venv }}{{ .Venv }}{{ end }})</>"
+    background = 'transparent'
+    foreground = 'p:grey'
+
 
 [[blocks]]
   type = 'rprompt'
@@ -48,8 +95,6 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     Duration = 0
     NameLength = 0
 
-    [blocks.segments.properties]
-      threshold = 5000
 
 [[blocks]]
   type = 'prompt'
@@ -60,12 +105,13 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     type = 'text'
     style = 'plain'
     foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}magenta{{end}}']
-    template = '  '
+    template = '❯'
     background = 'transparent'
     foreground = ''
     Text = ''
     Duration = 0
     NameLength = 0
+
 
 [transient_prompt]
   foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}magenta{{end}}']
@@ -83,3 +129,11 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
   Text = ''
   Duration = 0
   NameLength = 0
+
+[palette]
+  grey = '#cccccc'
+  orange = '#ffaf00'
+  red = '#ff5f5f'
+  green = '#5fff5f'
+  yellow = '#ffff5f'
+  white = '#ffffff'
