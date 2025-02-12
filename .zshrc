@@ -3,7 +3,6 @@ if [ "$TERM" = "xterm-kitty" ]; then
    alias ssh="kitty +kitten ssh"
    precmd () { print -Pn "\033]0;Kitty\a" }
 fi
-
 HISTFILE=~/.history
 HISTSIZE=1000
 SAVEHIST=1000
@@ -80,8 +79,27 @@ alias history="history | cut -c 8-" # remove the line number
 # init fzf 
 source ~/.config/fzf/fzf.sh
 
+# yazi alias: when yazi is closed, cd to the directory where it was closed
+yazi() {
+    tmp="$(mktemp)"
+    command yazi --cwd-file="$tmp"
+    if [ -f "$tmp" ]; then
+        cd "$(cat "$tmp")"
+        rm -f "$tmp"
+    fi
+}
+
 # cd
 eval "$(zoxide init zsh --cmd cd)"
 
 alias open="xdg-open"
 neofetch
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /home/matteo/.dart-cli-completion/zsh-config.zsh ]] && . /home/matteo/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
