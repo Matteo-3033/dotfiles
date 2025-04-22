@@ -1,9 +1,10 @@
 #
 # wm independent hotkeys
 
-# Kazam (screenshot)
+# Screenshots
 super + Print
-	kazam
+    sh $HOME/.config/rofi/bin/screenshot
+	# kazam
 
 # Firefox
 super + q
@@ -15,15 +16,19 @@ super + Return
 
 # Program launcher
 super + @space
-	rofi -show run
+	sh $HOME/.config/rofi/bin/launcher
+
+super + ctrl + @space
+    sh $HOME/.config/rofi/bin/runner
 
 # File browser
 super + e
 	rofi -show filebrowser
 
-# Reload sxhkd configuration files:
+# Open logout menu
 super + Escape
-	pkill -USR1 -x sxhkd
+    sh $HOME/.config/rofi/bin/powermenu
+
 
 #
 # bspwm hotkeys
@@ -31,7 +36,7 @@ super + Escape
 
 # quit/restart bspwm
 super + alt + {q,r}
-	bspc {quit,wm -r}
+	bspc {quit, wm -r}
 
 # close and kill
 super + {_,shift + }w

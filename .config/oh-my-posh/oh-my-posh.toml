@@ -32,6 +32,7 @@ final_space = true
     style = 'plain'
 
     [blocks.segments.properties]
+      cache_duration = 'none'
       charged_icon = '󰁹 '
       discharging_icon = '󰂃 '
       not_charging_icon = '󰂃 '
@@ -44,6 +45,7 @@ final_space = true
     style = 'plain'
 
     [blocks.segments.properties]
+      cache_duration = 'none'
       max_depth = 2
       style = 'agnoster_short'
 
@@ -56,6 +58,7 @@ final_space = true
 
     [blocks.segments.properties]
       branch_icon = ' '
+      cache_duration = 'none'
       commit_icon = '@'
       fetch_status = true
 
@@ -66,12 +69,18 @@ final_space = true
     type = 'node'
     style = 'plain'
 
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
   [[blocks.segments]]
     template = ' via <p:red> {{ .Full }}</>'
     foreground = 'p:grey'
     background = 'transparent'
     type = 'java'
     style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
 
   [[blocks.segments]]
     template = ' via <p:orange><b>K</b> {{ .Full }}</>'
@@ -80,12 +89,18 @@ final_space = true
     type = 'kotlin'
     style = 'plain'
 
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
   [[blocks.segments]]
     template = ' via <p:yellow> {{ .Full }} ({{ if .Venv }}{{ .Venv }}{{ end }})</>'
     foreground = 'p:grey'
     background = 'transparent'
     type = 'python'
     style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
 
 [[blocks]]
   type = 'rprompt'
@@ -98,6 +113,9 @@ final_space = true
     type = 'executiontime'
     style = 'plain'
 
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
 [[blocks]]
   type = 'prompt'
   alignment = 'left'
@@ -109,3 +127,6 @@ final_space = true
     type = 'text'
     style = 'plain'
     foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}magenta{{end}}']
+
+    [blocks.segments.properties]
+      cache_duration = 'none'

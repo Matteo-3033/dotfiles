@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-alacritty -e sh -c "nvim"
+kitty -e sh -c "nvim"
