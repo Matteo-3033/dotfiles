@@ -1,3 +1,4 @@
+-- Auto complete suggestions
 return {
     {
         "hrsh7th/cmp-nvim-lsp",

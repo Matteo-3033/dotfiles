@@ -1,6 +1,7 @@
+-- Java support
 return {
-	"mfussenegger/nvim-jdtls",
-	dependencies = {
-		"nvim-dap",
-	},
+    "mfussenegger/nvim-jdtls",
+    dependencies = {
+        "nvim-dap",
+    },
 }

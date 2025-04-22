@@ -1,3 +1,4 @@
+-- Erros and warnings list
 return {
     "folke/trouble.nvim",
     opts = {},

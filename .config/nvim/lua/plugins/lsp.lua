@@ -10,6 +10,8 @@ return {
     config = function()
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+        local python_virtual_env = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX") or "/usr"
+
         local lspconfig = require("lspconfig")
         lspconfig.ts_ls.setup({
             capabilities = capabilities,
@@ -21,7 +23,7 @@ return {
             capabilities = capabilities,
             settings = {
                 python = {
-                    pythonPath = "~/.local/share/nvim/python/bin/python",
+                    pythonPath = python_virtual_env .. "/bin/python",
                 },
             },
         })

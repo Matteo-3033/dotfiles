@@ -1,7 +1,8 @@
+-- Rust support
 return {
-	{
-		"mrcjkb/rustaceanvim",
-		version = "^5",
-		lazy = false, -- This plugin is already lazy
-	},
+    {
+        "mrcjkb/rustaceanvim",
+        version = "^5",
+        lazy = false, -- This plugin is already lazy
+    },
 }

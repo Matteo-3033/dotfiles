@@ -1,3 +1,4 @@
+-- Search panel for files and text
 return {
     {
         "nvim-telescope/telescope.nvim",
