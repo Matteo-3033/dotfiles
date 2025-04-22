@@ -10,6 +10,9 @@ SAVEHIST=1000
 ZSH_THEME="robbyrussell"
 DISABLE_AUTO_TITLE="true"
 
+# System info
+neofetch
+
 # zsh-newuser-install configuration
 setopt autocd beep nomatch
 unsetopt extendedglob
@@ -83,13 +86,16 @@ yazi() {
 eval "$(zoxide init zsh --cmd cd)"
 
 alias open="xdg-open"
-neofetch
 
+# nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-## [Completion]
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
 ## Completion scripts setup. Remove the following line to uninstall
 [[ -f /home/matteo/.dart-cli-completion/zsh-config.zsh ]] && . /home/matteo/.dart-cli-completion/zsh-config.zsh || true
-## [/Completion]
