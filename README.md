@@ -43,6 +43,7 @@ Before proceeding with the installation, ensure the following dependencies are i
 - **nvm**: Node.js version manager
 - **poppler**: PDF previews
 - **python**: Python runtime
+- **pyenv**: Python environments manager
 - **ripgrep**: High-performance text search tool
 - **stow**: For managing symlinks
 - **unzip**: Extract `.zip` files
@@ -70,7 +71,7 @@ Before proceeding with the installation, ensure the following dependencies are i
 1. Open Tmux.
 2. Install plugins by pressing:
    ```
-   Ctrl + S -> Ctrl + I
+   Ctrl + S -> I
    ```
 
 #### Neovim
