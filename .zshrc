@@ -11,7 +11,7 @@ ZSH_THEME="robbyrussell"
 DISABLE_AUTO_TITLE="true"
 
 # System info
-neofetch
+DISPLAY="" neofetch
 
 # zsh-newuser-install configuration
 setopt autocd beep nomatch
