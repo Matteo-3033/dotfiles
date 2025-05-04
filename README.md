@@ -1,11 +1,13 @@
 # Dotfiles
 
 ## Overview
+
 This repository contains configuration files for various tools and utilities aimed at improving your terminal experience. Below is a list of programs, dependencies, and setup instructions.
 
 ---
 
 ## Programs
+
 This repository contains configuration files for the following programs:
 
 - **atuin**: Enhanced shell history database
@@ -31,6 +33,7 @@ It is not required to install all these programs to use this repository—these 
 ---
 
 ## Dependencies
+
 Before proceeding with the installation, ensure the following dependencies are installed for full functionality:
 
 - **A nerd font**: Required for proper font rendering in terminals
@@ -48,12 +51,14 @@ Before proceeding with the installation, ensure the following dependencies are i
 - **stow**: For managing symlinks
 - **unzip**: Extract `.zip` files
 - **xclip**: Clipboard management
+- **mpv**: Media player
 
 ---
 
 ## Installation
 
 1. Clone the repository and initialize its submodules:
+
    ```bash
    git clone --recurse-submodules <repository-url>
    ```
@@ -68,6 +73,7 @@ Before proceeding with the installation, ensure the following dependencies are i
 ### Manual Configuration
 
 #### Tmux
+
 1. Open Tmux.
 2. Install plugins by pressing:
    ```
@@ -99,6 +105,7 @@ Before proceeding with the installation, ensure the following dependencies are i
    ```
 
 #### Oh-My-Zsh
+
 1. Install Oh-My-Zsh:
    ```bash
    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -117,6 +124,7 @@ Before proceeding with the installation, ensure the following dependencies are i
 ## Additional Resources
 
 ### Betterfox
+
 For enhanced Firefox configurations, refer to the Betterfox repository:  
 [https://github.com/yokoffing/BetterFox](https://github.com/yokoffing/BetterFox)
 
