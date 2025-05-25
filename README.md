@@ -47,6 +47,7 @@ Before proceeding with the installation, ensure the following dependencies are i
 - **poppler**: PDF previews
 - **python**: Python runtime
 - **pyenv**: Python environments manager
+- **pyenv-virtualenv**: Python virtual environments manager
 - **ripgrep**: High-performance text search tool
 - **stow**: For managing symlinks
 - **unzip**: Extract `.zip` files
@@ -59,14 +60,14 @@ Before proceeding with the installation, ensure the following dependencies are i
 
 1. Clone the repository and initialize its submodules:
 
-   ```bash
-   git clone --recurse-submodules <repository-url>
-   ```
+    ```bash
+    git clone --recurse-submodules <repository-url>
+    ```
 
 2. Run the following command to symlink the dotfiles:
-   ```bash
-   stow .
-   ```
+    ```bash
+    stow .
+    ```
 
 ---
 
@@ -76,48 +77,48 @@ Before proceeding with the installation, ensure the following dependencies are i
 
 1. Open Tmux.
 2. Install plugins by pressing:
-   ```
-   Ctrl + S -> I
-   ```
+    ```
+    Ctrl + S -> I
+    ```
 
 #### Neovim
 
 1. Navigate to the Neovim data directory (create it if it does not exist):
-   ```bash
-   mkdir -p ~/.local/share/nvim
-   cd ~/.local/share/nvim
-   ```
+    ```bash
+    mkdir -p ~/.local/share/nvim
+    cd ~/.local/share/nvim
+    ```
 2. Set up a Python virtual environment and install Neovim requirements:
-   ```bash
-   python -m venv python
-   cd python
-   source bin/activate
-   pip install pynvim mypy
-   ```
+    ```bash
+    python -m venv python
+    cd python
+    source bin/activate
+    pip install pynvim mypy
+    ```
 3. Install Node.js:
-   ```bash
-   nvm install 20
-   nvm use 20
-   ```
+    ```bash
+    nvm install 20
+    nvm use 20
+    ```
 4. Open Neovim to install required plugins:
-   ```bash
-   nvim
-   ```
+    ```bash
+    nvim
+    ```
 
 #### Oh-My-Zsh
 
 1. Install Oh-My-Zsh:
-   ```bash
-   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-   ```
+    ```bash
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    ```
 2. Remove the existing `.zshrc` file:
-   ```bash
-   rm ~/.zshrc
-   ```
+    ```bash
+    rm ~/.zshrc
+    ```
 3. Re-run the following command to apply the new configuration:
-   ```bash
-   stow .
-   ```
+    ```bash
+    stow .
+    ```
 
 ---
 
