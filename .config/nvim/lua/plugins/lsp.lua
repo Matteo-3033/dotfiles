@@ -10,7 +10,21 @@ return {
     config = function()
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-        local python_virtual_env = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX") or "/usr"
+        local function get_python_path()
+            local handle = io.popen("pyenv which python 2>/dev/null")
+            if handle then
+                local result = handle:read("*a")
+                handle:close()
+                if result and result ~= "" then
+                    return result:gsub("%s+$", "")
+                end
+            end
+
+            local venv = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX") or "/usr"
+            return venv .. "/bin/python"
+        end
+
+        local python_path = get_python_path()
 
         local lspconfig = require("lspconfig")
         lspconfig.ts_ls.setup({
@@ -23,7 +37,7 @@ return {
             capabilities = capabilities,
             settings = {
                 python = {
-                    pythonPath = python_virtual_env .. "/bin/python",
+                    pythonPath = python_path,
                 },
             },
         })
