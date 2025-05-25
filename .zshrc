@@ -31,8 +31,11 @@ PS1='[\u@\h \W]\$ '
 # Environment variables
 export ZSH="$HOME/.oh-my-zsh"
 export ANDROID_HOME=/home/matteo/Android/Sdk
+export CUDA_HOME=/opt/cuda
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/scripts
+export PATH=$CUDA_HOME/bin:$PATH
 export MANPATH="/usr/local/man:$MANPATH"
 export EDITOR="nvim"
 export ARCHFLAGS="-arch x86_64"
