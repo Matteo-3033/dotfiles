@@ -11,7 +11,7 @@ ZSH_THEME="robbyrussell"
 DISABLE_AUTO_TITLE="true"
 
 # System info
-DISPLAY="" neofetch
+DISPLAY="" fastfetch --gpu-hide-type integrated
 
 # zsh-newuser-install configuration
 setopt autocd beep nomatch
