@@ -21,6 +21,7 @@ return {
                         "markdown",
                         "json",
                         "javascriptreact",
+                        "typescriptreact",
                     },
                 }),
                 -- diagnostics
