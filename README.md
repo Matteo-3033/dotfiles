@@ -12,17 +12,13 @@ This repository contains configuration files for the following programs:
 
 - **atuin**: Enhanced shell history database
 - **bat**: Improved `cat` command
-- **bspwm**: A tiling window manager
 - **btop**: Advanced system monitor (alternative to `htop`)
 - **fzf**: Fuzzy finder
 - **Kitty / Alacritty**: Terminal emulators
-- **neofetch**: System information tool
-- **nitrogen**: Background browser and setter
+- **fastfetch**: System information tool
 - **Neovim**: A good editor
 - **oh-my-posh / starship**: Customizable prompts
-- **rofi**: Window switcher and application launcher
 - **shellfirm**: Warnings for dangerous commands
-- **sxhkd**: Keyboard event handler
 - **Tmux**: Terminal multiplexer
 - **yazi**: Terminal file manager
 - **zoxide**: Smarter `cd` command
@@ -53,6 +49,7 @@ Before proceeding with the installation, ensure the following dependencies are i
 - **unzip**: Extract `.zip` files
 - **xclip**: Clipboard management
 - **mpv**: Media player
+- **viu**: Terminal image viewer
 
 ---
 
