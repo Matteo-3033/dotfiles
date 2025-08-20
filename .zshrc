@@ -7,7 +7,6 @@ HISTFILE=~/.history
 HISTSIZE=1000
 SAVEHIST=1000
 
-ZSH_THEME="robbyrussell"
 DISABLE_AUTO_TITLE="true"
 
 # System info
@@ -19,9 +18,6 @@ unsetopt extendedglob
 bindkey -v
 
 zstyle :compinstall filename '~/.zshrc'
-
-autoload -Uz compinit
-compinit
 # End of lines configured by zsh-newuser-install
 
 alias ls='ls --color=auto'
@@ -57,12 +53,9 @@ plugins=(
    shellfirm
    zsh-nvm
    autoupdate
-   ssh-agent
 )
 export DISABLE_AUTO_UPDATE=true
 source $ZSH/oh-my-zsh.sh
-
-#source /usr/share/nvm/init-nvm.sh
 
 # Prompt
 eval "$(oh-my-posh init --config $HOME/.config/oh-my-posh/oh-my-posh.toml zsh)"
@@ -70,7 +63,7 @@ eval "$(oh-my-posh init --config $HOME/.config/oh-my-posh/oh-my-posh.toml zsh)"
 
 # history
 eval "$(atuin init zsh)"
-alias history="history | cut -c 8-" # remove the line number 
+#alias history="history | cut -c 8-" # remove the line number 
 
 # init fzf 
 source ~/.config/fzf/fzf.sh
@@ -90,11 +83,6 @@ eval "$(zoxide init zsh --cmd cd)"
 
 alias open="xdg-open"
 
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
@@ -102,3 +90,8 @@ eval "$(pyenv init - zsh)"
 
 ## Completion scripts setup. Remove the following line to uninstall
 [[ -f /home/matteo/.dart-cli-completion/zsh-config.zsh ]] && . /home/matteo/.dart-cli-completion/zsh-config.zsh || true
+
+# SSH agent setup
+eval $(ssh-agent -s) > /dev/null
+ssh-add ~/.ssh/private_keys/* 2>/dev/null
+
