@@ -50,6 +50,9 @@ Before proceeding with the installation, ensure the following dependencies are i
 - **xclip**: Clipboard management
 - **mpv**: Media player
 - **viu**: Terminal image viewer
+- **graphviz**: Graph visualization tool
+- **rust**: Programming language (optional, for specific plugins)
+- **rust-analyzer**: Language server for Rust
 
 ---
 
@@ -96,6 +99,7 @@ Before proceeding with the installation, ensure the following dependencies are i
     ```bash
     nvm install 20
     nvm use 20
+    npm install -g neovim
     ```
 4. Open Neovim to install required plugins:
     ```bash
