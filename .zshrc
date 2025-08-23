@@ -51,7 +51,6 @@ plugins=(
    zsh-autosuggestions
    zsh-syntax-highlighting
    shellfirm
-   zsh-nvm
    autoupdate
 )
 export DISABLE_AUTO_UPDATE=true
@@ -94,4 +93,8 @@ eval "$(pyenv init - zsh)"
 # SSH agent setup
 eval $(ssh-agent -s) > /dev/null
 ssh-add ~/.ssh/private_keys/* 2>/dev/null
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
