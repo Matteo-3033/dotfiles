@@ -93,7 +93,7 @@ Before proceeding with the installation, ensure the following dependencies are i
     python -m venv python
     cd python
     source bin/activate
-    pip install pynvim mypy
+    pip install pynvim mypy debugpy
     ```
 3. Install Node.js:
     ```bash
