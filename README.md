@@ -64,20 +64,13 @@ Before proceeding with the installation, ensure the following dependencies are i
     git clone --recurse-submodules <repository-url>
     ```
 
-2. Run the following command to symlink the dotfiles:
-    ```bash
-    stow .
-    ```
-
----
-
 ### Manual Configuration
 
 #### Tmux
 
 1. Open Tmux.
 2. Install plugins by pressing:
-    ```
+    ```bash
     Ctrl + S -> I
     ```
 
@@ -120,6 +113,11 @@ Before proceeding with the installation, ensure the following dependencies are i
     ```bash
     stow .
     ```
+### Confirm Configuration
+
+```bash
+stow .
+```
 
 ---
 
