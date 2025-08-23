@@ -23,7 +23,6 @@ return {
             "pyright",
             "stylelint",
             "typescript-language-server",
-            "rust-analyzer",
         }
         require("mason").setup({
             ensure_installed = ensure_installed,

@@ -1,35 +1,34 @@
 -- Floating terminal
 -- Press <leader>tt to toggle the terminal
 return {
-	{
-		"akinsho/toggleterm.nvim",
-		version = "*",
-		opts = { --[[ things you want to change go here]]
-		},
-		config = function()
-			require("toggleterm").setup({
-				size = 10,
-				direction = "float", -- float | horizontal | vertical | tab
-				float_opts = {
-					border = "curved",
-				},
-			})
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    config = function()
+        local Terminal = require("toggleterm.terminal").Terminal
 
-			local Terminal = require("toggleterm.terminal").Terminal
-			local float_term = Terminal:new({ id = 1, direction = "float" })
+        -- terminale persistente id=1, float, start in insert
+        local float_term = Terminal:new({
+            id = 1,
+            direction = "float",
+            start_in_insert = true,
+            close_on_exit = true,
+            float_opts = { border = "curved" },
+        })
 
-			local toggle_float = function()
-				float_term:toggle()
-			end
+        local toggle_smart = function()
+            float_term:toggle()
+            vim.cmd("startinsert")
+        end
 
-			-- mapping sia in normal che in terminal mode
-			vim.keymap.set("n", "<leader>tt", toggle_float, { desc = "Toggle floating terminal" })
-			vim.keymap.set(
-				"t",
-				"<leader>tt",
-				[[<C-\><C-n><cmd>lua require("toggleterm.terminal").get(1):toggle()<CR>]],
-				{ desc = "Toggle floating terminal" }
-			)
-		end,
-	},
+        -- mapping normal mode
+        vim.keymap.set("n", "<leader>tt", toggle_smart, { desc = "Toggle smart floating terminal" })
+
+        -- mapping terminal mode: torna in normal mode e richiama toggle
+        vim.keymap.set(
+            "t",
+            "<leader>tt",
+            [[<C-\><C-n>:lua require("toggleterm.terminal").get(1):toggle()<CR>i]],
+            { desc = "Toggle smart floating terminal in insert" }
+        )
+    end,
 }
