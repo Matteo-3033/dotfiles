@@ -1,4 +1,4 @@
-if [ "$TERM" = "xterm-kitty" ]; then
+if [ -n "$KITTY_WINDOW_ID" ]; then
    alias icat="kitty +kitten icat"
    alias ssh="kitty +kitten ssh"
    precmd () { print -Pn "\033]0;Kitty\a" }
@@ -10,7 +10,7 @@ SAVEHIST=1000
 DISABLE_AUTO_TITLE="true"
 
 # System info
-DISPLAY="" fastfetch --gpu-hide-type integrated
+DISPLAY="" fastfetch
 
 # zsh-newuser-install configuration
 setopt autocd beep nomatch
@@ -31,7 +31,7 @@ export CUDA_HOME=/opt/cuda
 export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/scripts
-export PATH=$CUDA_HOME/bin:$PATH
+export PATH=$PATH:$CUDA_HOME/bin
 export MANPATH="/usr/local/man:$MANPATH"
 export EDITOR="nvim"
 export ARCHFLAGS="-arch x86_64"

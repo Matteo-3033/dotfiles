@@ -28,7 +28,8 @@
     "cpu",
     {
         "type": "gpu",
-        "format": "{vendor} {name}" 
+        "format": "{vendor} {name}",
+        "hideType": "integrated"
     },
     "memory",
     //"swap",
