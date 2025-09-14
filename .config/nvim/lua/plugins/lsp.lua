@@ -1,13 +1,12 @@
 return {
     "neovim/nvim-lspconfig",
     lazy = false,
-    dependencies = {
-        {
-            "williamboman/mason-lspconfig.nvim",
-            opts = { automatic_installation = true },
-        },
-    },
+
     config = function()
+        require("mason").setup({
+            automatic_installation = true,
+        })
+
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
         local function get_python_path()
@@ -38,6 +37,12 @@ return {
             settings = {
                 python = {
                     pythonPath = python_path,
+                    analysis = {
+                        typeCheckingMode = "strict",
+                        autoSearchPaths = true,
+                        useLibraryCodeForTypes = true,
+                        diagnosticMode = "workspace",
+                    },
                 },
             },
         })
