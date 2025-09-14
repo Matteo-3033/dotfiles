@@ -27,10 +27,25 @@ return {
                 -- diagnostics
                 null_ls.builtins.diagnostics.mypy.with({
                     extra_args = function()
-                        local virtual = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX") or "/usr"
+                        local function get_python_path()
+                            local handle = io.popen("pyenv which python 2>/dev/null")
+                            if handle then
+                                local result = handle:read("*a")
+                                handle:close()
+                                if result and result ~= "" then
+                                    return result:gsub("%s+$", "")
+                                end
+                            end
+
+                            local venv = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX") or "/usr"
+                            return venv .. "/bin/python"
+                        end
+
+                        local python_path = get_python_path()
+
                         return {
                             "--python-executable",
-                            virtual .. "/bin/python",
+                            python_path,
                             "--strict-equality",
                             "--strict",
                             "--extra-checks",
