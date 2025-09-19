@@ -1,7 +1,9 @@
-if [ -n "$KITTY_WINDOW_ID" ]; then
-   alias icat="kitty +kitten icat"
-   alias ssh="kitty +kitten ssh"
-   precmd () { print -Pn "\033]0;Kitty\a" }
+if [ -n "$KITTY_WINDOW_ID" ]; then 
+    alias icat="kitty +kitten icat"
+    if [ -z "$TMUX" ]; then
+        alias ssh="kitty +kitten ssh"
+    fi
+    precmd () { print -Pn "\033]0;Kitty\a" }
 fi
 HISTFILE=~/.history
 HISTSIZE=1000
