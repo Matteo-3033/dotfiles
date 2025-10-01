@@ -33,15 +33,15 @@ return {
             --     dapui.close()
             -- end
 
-            vim.keymap.set("n", "<Leader>db", ":DapToggleBreakpoint<CR>")
-            vim.keymap.set("n", "<Leader>dc", ":DapContinue<CR>")
-            vim.keymap.set("n", "<Leader>dt", ":DapTerminate<CR>")
-            vim.keymap.set("n", "<Leader>do", ":DapStepOver<CR>")
+            vim.keymap.set("n", "<Leader>db", ":DapToggleBreakpoint<CR>", { desc = "Toggle Breakpoint" })
+            vim.keymap.set("n", "<Leader>dc", ":DapContinue<CR>", { desc = "Continue" })
+            vim.keymap.set("n", "<Leader>dt", ":DapTerminate<CR>", { desc = "Terminate" })
+            vim.keymap.set("n", "<Leader>do", ":DapStepOver<CR>", { desc = "Step Over" })
             vim.api.nvim_set_keymap(
                 "n",
                 "<Leader>dd",
                 ':lua require("dapui").close()<CR>',
-                { noremap = true, silent = true }
+                { noremap = true, silent = true, desc = "Close DAP UI" }
             )
         end,
     },

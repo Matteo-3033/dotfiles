@@ -54,17 +54,17 @@ return {
         })
 
         -- get info
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "LSP Hover" })
         -- go to definition
-        vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
+        vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "LSP Go to Definition" })
         -- go to references
         --vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
         vim.keymap.set("n", "<leader>gr", function()
             require("telescope.builtin").lsp_references({})
-        end, {})
+        end, { desc = "LSP References" })
         -- rename symbol
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
+        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename Symbol" })
         -- get code actions
-        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Code Action" })
     end,
 }
