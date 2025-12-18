@@ -56,7 +56,9 @@ return {
         -- get info
         vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "LSP Hover" })
         -- go to definition
-        vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "LSP Go to Definition" })
+        vim.keymap.set("n", "<leader>gd", function()
+            require("telescope.builtin").lsp_definitions({})
+        end, { desc = "LSP Go to Definition" })
         -- go to references
         --vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
         vim.keymap.set("n", "<leader>gr", function()
