@@ -78,6 +78,15 @@ yazi() {
         rm -f "$tmp"
     fi
 }
+yazi_widget() {
+    zle -I
+    yazi
+    zle -U ""
+    zle accept-line
+}
+# Bind Ctrl+F to yazi
+zle -N yazi_widget
+bindkey '^F' yazi_widget
 
 # cd
 eval "$(zoxide init zsh --cmd cd)"
