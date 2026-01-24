@@ -53,6 +53,7 @@ Before proceeding with the installation, ensure the following dependencies are i
 - **graphviz**: Graph visualization tool
 - **rust**: Programming language (optional, for specific plugins)
 - **rust-analyzer**: Language server for Rust
+- **exiftool**: Metadata reader/writer
 
 ---
 
@@ -113,6 +114,7 @@ Before proceeding with the installation, ensure the following dependencies are i
     ```bash
     stow .
     ```
+
 ### Confirm Configuration
 
 ```bash
