@@ -30,8 +30,9 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 
 [opener]
 edit = [
-	{ run = "${EDITOR:-vi} %s", desc = "$EDITOR",      for = "unix", block = true },
-	{ run = "code %s",          desc = "code",         for = "windows", orphan = true },
+	{ run = "nvim %s",          desc = "NVIM",         for = "unix",    block = true },
+    { run = "code %s",          desc = "VS Code",      for = "unix" },
+	{ run = "code %s",          desc = "VS Code",      for = "windows", orphan = true },
 	{ run = "code -w %s",       desc = "code (block)", for = "windows", block = true },
 ]
 play = [
@@ -39,19 +40,12 @@ play = [
 	{ run = 'mpv --force-window %*', orphan = true, for = "windows" },
     { run = 'vlc "$@"', orphan = true, for = "unix", desc = "VLC" },
 	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
-
-    #{ run = "xdg-open %s1",    desc = "Play", for = "linux", orphan = true },
-    #{ run = "open %s",         desc = "Play", for = "macos" },
-    #{ run = 'start "" %s1',    desc = "Play", for = "windows", orphan = true },
-    #{ run = "termux-open %s1", desc = "Play", for = "android" },
-    #{ run = "mediainfo %s1; echo 'Press enter to exit'; read _", block = true, desc = "Show media info", for = "unix" },
-    #{ run = "mediainfo %s1 & pause", block = true, desc = "Show media info", for = "windows" },
 ]
 open = [
-	{ run = "xdg-open %s1",    desc = "Open", for = "linux" },
-	{ run = "open %s",         desc = "Open", for = "macos" },
-	{ run = 'start "" %s1',    desc = "Open", for = "windows", orphan = true },
-	{ run = "termux-open %s1", desc = "Open", for = "android" },
+	{ run = "xdg-open %s1",    desc = "Default App", for = "linux" },
+	{ run = "open %s",         desc = "Default App", for = "macos" },
+	{ run = 'start "" %s1',    desc = "Default App", for = "windows", orphan = true },
+	{ run = "termux-open %s1", desc = "Default App", for = "android" },
 ]
 reveal = [
 	{ run = "clear; exiftool %s1; echo 'Press enter to exit'; read _", desc = "Show EXIF", for = "unix", block = true },
@@ -63,16 +57,16 @@ download = [
 	{ run = "ya emit download --open %S", desc = "Download and open" },
 	{ run = "ya emit download %S",        desc = "Download" },
 ]
-code = [
-    { run = "code %s", desc = "VS Code" }
+terminal = [
+    { run = "sh -c 'kitty --directory \"$0\"' %s", desc = "Terminal" }
 ]
 
 [open]
 rules = [
 	# Folder
-	{ url = "*/", use = [ "edit", "open", "code", "reveal"] },
+	{ url = "*/", use = [ "edit", "terminal", "open", "terminal", "reveal" ] },
 	# Text
-	{ mime = "text/*", use = [ "edit", "reveal", "code" ] },
+	{ mime = "text/*", use = [ "edit", "reveal" ] },
 	# Image
 	{ mime = "image/*", use = [ "open", "reveal" ] },
 	# Media
