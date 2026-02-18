@@ -125,6 +125,8 @@ keymap = [
 	{ on = [ "g", "e" ],       run = "cd ~/Documents/Ricerca",   desc = "Go to the Ricerca directory" },
 	{ on = [ "g", "D" ],       run = "cd ~/Downloads",   desc = "Go to the download directory" },
 	{ on = [ "g", "p" ],       run = "cd ~/Pictures",   desc = "Go to the pictures directory" },
+	{ on = [ "g", "G" ],       run = "cd \"~/Google Drive\"",   desc = "Go to the Google Drive directory" },
+	{ on = [ "g", "O" ],       run = "cd \"~/OneDrive - Unimi\"",   desc = "Go to the OneDrive directory" },
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Go to a directory interactively" },
 
 	# Tabs
