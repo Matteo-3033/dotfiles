@@ -22,6 +22,7 @@ This repository contains configuration files for the following programs:
 - **Tmux**: Terminal multiplexer
 - **yazi**: Terminal file manager
 - **zoxide**: Smarter `cd` command
+- **eza**: Modern replacement for `ls`
 - **zsh**: Z shell
 
 It is not required to install all these programs to use this repository—these are just the programs I use in my daily workflow. Feel free to customize it as you like.

@@ -71,12 +71,11 @@ source ~/.config/fzf/fzf.sh
 
 # yazi alias: when yazi is closed, cd to the directory where it was closed
 yazi() {
-    tmp="$(mktemp)"
-    command yazi --cwd-file="$tmp"
-    if [ -f "$tmp" ]; then
-        cd "$(cat "$tmp")"
-        rm -f "$tmp"
-    fi
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
 }
 yazi_widget() {
     zle -I
@@ -90,6 +89,10 @@ bindkey '^F' yazi_widget
 
 # cd
 eval "$(zoxide init zsh --cmd cd)"
+
+# ls
+alias ls='exa --color=auto --icons=auto --group-directories-first'
+alias tree='exa --tree --color=auto --icons=auto --group-directories-first'
 
 alias open="xdg-open"
 
@@ -110,3 +113,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+pyenv global system
