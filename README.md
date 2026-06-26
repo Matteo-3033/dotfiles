@@ -13,7 +13,6 @@ This repository contains configuration files for the following programs:
 - **atuin**: Enhanced shell history database
 - **bat**: Improved `cat` command
 - **btop**: Advanced system monitor (alternative to `htop`)
-- **fzf**: Fuzzy finder
 - **Kitty / Alacritty**: Terminal emulators
 - **fastfetch**: System information tool
 - **Neovim**: A good editor
@@ -24,6 +23,7 @@ This repository contains configuration files for the following programs:
 - **zoxide**: Smarter `cd` command
 - **eza**: Modern replacement for `ls`
 - **zsh**: Z shell
+- **tldr**: Better man
 
 It is not required to install all these programs to use this repository—these are just the programs I use in my daily workflow. Feel free to customize it as you like.
 
@@ -37,6 +37,7 @@ Before proceeding with the installation, ensure the following dependencies are i
 - **fd**: Fast and user-friendly alternative to `find`
 - **ffmpeg**: For multimedia processing
 - **ffmpegthumbnailer**: Generate video thumbnails
+- **fzf**: Fuzzy finder
 - **gcc**: C/C++ compiler
 - **jq**: Command-line JSON parser
 - **lazygit**: Git CLI interface
