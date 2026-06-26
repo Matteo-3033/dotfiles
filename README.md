@@ -71,7 +71,11 @@ Before proceeding with the installation, ensure the following dependencies are i
 #### Tmux
 
 1. Open Tmux.
-2. Install plugins by pressing:
+2. Run:
+    ```bash
+    tmux source ~/tmux.conf
+    ```
+3. Install plugins by pressing:
     ```bash
     Ctrl + S -> I
     ```
@@ -121,15 +125,6 @@ Before proceeding with the installation, ensure the following dependencies are i
 ```bash
 stow .
 ```
-
----
-
-## Additional Resources
-
-### Betterfox
-
-For enhanced Firefox configurations, refer to the Betterfox repository:  
-[https://github.com/yokoffing/BetterFox](https://github.com/yokoffing/BetterFox)
 
 ---
 
