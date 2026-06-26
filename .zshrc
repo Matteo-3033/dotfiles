@@ -22,7 +22,6 @@ bindkey -v
 zstyle :compinstall filename '~/.zshrc'
 # End of lines configured by zsh-newuser-install
 
-alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 
@@ -91,7 +90,7 @@ bindkey '^F' yazi_widget
 eval "$(zoxide init zsh --cmd cd)"
 
 # ls
-alias ls='exa --color=auto --icons=auto --group-directories-first'
+alias ls='eza --color=auto --icons=auto --group-directories-first'
 alias tree='exa --tree --color=auto --icons=auto --group-directories-first'
 
 alias open="xdg-open"
@@ -100,6 +99,7 @@ alias open="xdg-open"
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - zsh)"
+pyenv global system
 
 ## Completion scripts setup. Remove the following line to uninstall
 [[ -f /home/matteo/.dart-cli-completion/zsh-config.zsh ]] && . /home/matteo/.dart-cli-completion/zsh-config.zsh || true
@@ -114,4 +114,4 @@ export NVM_DIR="$HOME/.nvm"
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
-pyenv global system
+export HOMEBREW_NO_ENV_HINTS=1
