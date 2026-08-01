@@ -30,9 +30,15 @@ return {
     },
     {
         "hrsh7th/nvim-cmp",
+        dependencies = {
+            "L3MON4D3/LuaSnip",
+            "saadparwaiz1/cmp_luasnip",
+        },
         config = function()
             local cmp = require("cmp")
             require("luasnip.loaders.from_vscode").lazy_load()
+
+            vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 
             cmp.setup({
                 snippet = {
@@ -92,7 +98,7 @@ return {
             -- updatetime: set updatetime for CursorHold
             vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
             vim.opt.shortmess = vim.opt.shortmess + { c = true }
-            vim.api.nvim_set_option("updatetime", 300)
+            vim.opt.updatetime = 300
         end,
     },
     {
