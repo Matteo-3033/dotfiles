@@ -18,8 +18,12 @@ vim.g.mapleader = " "
 
 vim.api.nvim_set_option("clipboard", "unnamed")
 
--- Python path
 vim.g.python3_host_prog = "~/.local/share/nvim/python/bin/python"
+
+local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
+if not string.find(vim.env.PATH, mason_bin, 1, true) then
+	vim.env.PATH = mason_bin .. ":" .. vim.env.PATH
+end
 
 -- Navigation
 vim.keymap.set("n", "<c-k>", ":wincmd k<CR>")

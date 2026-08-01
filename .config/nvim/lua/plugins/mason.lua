@@ -24,13 +24,12 @@ return {
             "stylelint",
             "typescript-language-server",
             "sleek",
+            "tree-sitter-cli",
         }
-        require("mason").setup({
-            ensure_installed = ensure_installed,
-        })
+        require("mason").setup()
 
         vim.api.nvim_create_user_command("MasonInstallAll", function()
-            vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
+            vim.cmd("MasonInstall " .. table.concat(ensure_installed, " "))
         end, {})
 
         vim.g.mason_binaries_list = ensure_installed
