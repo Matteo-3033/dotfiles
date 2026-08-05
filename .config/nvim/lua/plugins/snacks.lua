@@ -61,6 +61,13 @@ return {
 						explorer_focus_main = function(picker)
 							vim.api.nvim_set_current_win(picker.main)
 						end,
+						-- Closes the explorer. Overrides the default "<c-n>"
+						-- (list_down) so the global <C-n> toggle keymap
+						-- (see plugins/snacks.lua keys) also works while
+						-- focus is inside the explorer itself.
+						explorer_toggle = function(picker)
+							picker:close()
+						end,
 					},
 					win = {
 						-- The explorer starts focused on the list (not the input),
@@ -69,6 +76,7 @@ return {
 						input = {
 							keys = {
 								["<Esc>"] = { "explorer_focus_main", mode = { "n", "i" } },
+								["<c-n>"] = { "explorer_toggle", mode = { "n", "i" } },
 							},
 						},
 						list = {
@@ -86,6 +94,10 @@ return {
 								-- picker); here it just returns to the document,
 								-- leaving it open.
 								["<Esc>"] = "explorer_focus_main",
+								-- <C-n> defaults to "list_down"; overridden here to close
+								-- the explorer, so the global <C-n> toggle keymap works
+								-- from inside the explorer too.
+								["<c-n>"] = "explorer_toggle",
 							},
 						},
 					},
@@ -113,7 +125,21 @@ return {
 		-- Explorer: replaces neo-tree. Closes with "q"; "<Esc>" instead returns
 		-- focus to the document, leaving it open in the background (see the
 		-- override in picker.sources.explorer above).
-		{ "<C-n>", function() Snacks.explorer() end, desc = "File Explorer" },
+		-- <C-n> toggles: closes the explorer if it's currently focused
+		-- (list or input), opens/focuses it otherwise. Snacks.explorer()
+		-- alone only opens/focuses, it never closes.
+		{
+			"<C-n>",
+			function()
+				local explorer = Snacks.picker.get({ source = "explorer" })[1]
+				if explorer and explorer:is_focused() then
+					explorer:close()
+				else
+					Snacks.explorer()
+				end
+			end,
+			desc = "Toggle File Explorer",
+		},
 		{ "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
 		-- Replace telescope: same shortcuts (<C-p>, <leader>lg) as before.
 		{ "<C-p>", function() Snacks.picker.files() end, desc = "Find Files" },
