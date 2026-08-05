@@ -106,7 +106,7 @@ return {
         config = function()
             require("nvim-autopairs").setup({
                 fast_wrap = {},
-                disable_filetype = { "TelescopePrompt", "vim" },
+                disable_filetype = { "snacks_picker_input", "vim" },
             })
 
             -- setup cmp for autopairs

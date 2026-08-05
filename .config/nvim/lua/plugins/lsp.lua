@@ -52,12 +52,12 @@ return {
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "LSP Hover" })
 		-- go to definition
 		vim.keymap.set("n", "<leader>gd", function()
-			require("telescope.builtin").lsp_definitions({})
+			Snacks.picker.lsp_definitions()
 		end, { desc = "LSP Go to Definition" })
 		-- go to references
 		--vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
 		vim.keymap.set("n", "<leader>gr", function()
-			require("telescope.builtin").lsp_references({})
+			Snacks.picker.lsp_references()
 		end, { desc = "LSP References" })
 		-- rename symbol
 		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename Symbol" })
