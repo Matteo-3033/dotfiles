@@ -15,23 +15,23 @@ return {
 			},
 		},
 		explorer = { enabled = true },
-		-- `doc.enabled` fa scansionare a snacks (via treesitter, in modo asincrono)
-		-- ogni buffer aperto alla ricerca di link a immagini per l'anteprima al
-		-- cursore. Su Neovim 0.12 questo parsing asincrono va in race con quello
-		-- dell'highlighter e crasha (v. commento in indent.scope sotto). La
-		-- renderizzazione immagini vera e propria (:h snacks-image) resta attiva.
+		-- `doc.enabled` makes snacks scan (via treesitter, asynchronously) every
+		-- open buffer looking for image links to preview at the cursor. On
+		-- Neovim 0.12 this async parsing races with the highlighter and crashes
+		-- (see the comment on indent.scope below). Actual image rendering
+		-- (:h snacks-image) stays enabled.
 		image = { enabled = true, doc = { enabled = false } },
-		-- `scope.async = false`: come sopra, evita il parsing treesitter asincrono
-		-- che va in race con l'highlighter e causa
-		-- "attempt to call method 'range' (a nil value)" ad ogni apertura di un
-		-- file con parser/injection piu' complessi (es. markdown con code fence).
+		-- `scope.async = false`: same as above, avoids the async treesitter
+		-- parsing that races with the highlighter and causes
+		-- "attempt to call method 'range' (a nil value)" on every file open
+		-- with a more complex parser/injection (e.g. markdown with code fences).
 		indent = { enabled = true, scope = { async = false } },
 		input = { enabled = true },
 		picker = {
 			enabled = true,
-			-- sostituisce `vim.ui.select` (menu code action, ecc.) al posto
-			-- dell'estensione telescope-ui-select. E' gia' true di default, esplicito
-			-- solo per chiarezza.
+			-- replaces `vim.ui.select` (code action menu, etc.) in place of the
+			-- telescope-ui-select extension. Already true by default, made
+			-- explicit only for clarity.
 			ui_select = true,
 			-- Esc closes the picker instead of just leaving insert mode
 			-- (default behavior, see comment in snacks.picker.config.defaults).
@@ -39,9 +39,9 @@ return {
 				input = { keys = { ["<Esc>"] = { "close", mode = { "n", "i" } } } },
 			},
 			sources = {
-				-- stessi pattern esclusi da telescope (file_ignore_patterns), qui come
-				-- glob passati a fd/rg invece che pattern Lua. ".git" e' gia' escluso
-				-- di default dal finder.
+				-- same patterns excluded by telescope (file_ignore_patterns), here
+				-- as globs passed to fd/rg instead of Lua patterns. ".git" is
+				-- already excluded by the finder by default.
 				files = { exclude = { "node_modules", "build", "*.class" } },
 				grep = { exclude = { "node_modules", "build", "*.class" } },
 				explorer = {
@@ -93,16 +93,16 @@ return {
 			},
 		},
 		notifier = { enabled = true },
-		-- Disabilitato: quickfile forza un `vim.cmd("redraw")` sincrono e
-		-- incondizionato (anche per i filetype in `exclude`) prima ancora che la
-		-- UI sia pronta, per mostrare il file prima di caricare i plugin. Su file
-		-- markdown con injection (code fence, inline) questo redraw troppo
-		-- anticipato fa scattare un crash nel core di Neovim 0.12:
-		-- "attempt to call method 'range' (a nil value)" nell'highlighter
-		-- treesitter — il "mare di errori" all'apertura di un .md. Il guadagno di
-		-- quickfile e' solo estetico (mostra il contenuto una frazione di secondo
-		-- prima che i plugin finiscano di caricare); l'highlighting normale
-		-- arriva comunque subito dopo, quindi si disattiva senza perdite reali.
+		-- Disabled: quickfile forces a synchronous, unconditional
+		-- `vim.cmd("redraw")` (even for filetypes in `exclude`) before the UI
+		-- is even ready, to show the file before plugins finish loading. On
+		-- markdown files with injections (code fences, inline) this too-early
+		-- redraw triggers a crash in Neovim 0.12 core:
+		-- "attempt to call method 'range' (a nil value)" in the treesitter
+		-- highlighter — the "sea of errors" when opening a .md file. The
+		-- benefit of quickfile is purely cosmetic (shows content a fraction of
+		-- a second before plugins finish loading); normal highlighting kicks
+		-- in right after anyway, so disabling it loses nothing real.
 		quickfile = { enabled = false },
 		scope = { enabled = true },
 		scroll = { enabled = true },
@@ -115,7 +115,7 @@ return {
 		-- override in picker.sources.explorer above).
 		{ "<C-n>", function() Snacks.explorer() end, desc = "File Explorer" },
 		{ "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
-		-- Sostituiscono telescope: stesse scorciatoie (<C-p>, <leader>lg) di prima.
+		-- Replace telescope: same shortcuts (<C-p>, <leader>lg) as before.
 		{ "<C-p>", function() Snacks.picker.files() end, desc = "Find Files" },
 		{ "<leader>lg", function() Snacks.picker.grep() end, desc = "Live Grep" },
 	},
