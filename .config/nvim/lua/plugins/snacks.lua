@@ -44,6 +44,26 @@ return {
 				-- di default dal finder.
 				files = { exclude = { "node_modules", "build", "*.class" } },
 				grep = { exclude = { "node_modules", "build", "*.class" } },
+				explorer = {
+					-- Named custom action: opens Find Files on top of the explorer
+					-- without closing it (unlike the built-in "picker_files" action,
+					-- which closes the source picker once the new one shows).
+					actions = {
+						explorer_find_files = function()
+							Snacks.picker.files()
+						end,
+					},
+					win = {
+						list = {
+							keys = {
+								-- <C-p> in the explorer defaults to "list_up" (inherited
+								-- from the base picker keymaps); here it behaves like in
+								-- a document: opens Find Files, without closing the explorer.
+								["<c-p>"] = "explorer_find_files",
+							},
+						},
+					},
+				},
 			},
 		},
 		notifier = { enabled = true },
