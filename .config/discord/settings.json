@@ -1,9 +1,24 @@
 {
-  "IS_MAXIMIZED": true,
+  "IS_MAXIMIZED": false,
   "IS_MINIMIZED": false,
   "chromiumSwitches": {},
   "SKIP_HOST_UPDATE": true,
   "OPEN_ON_STARTUP": false,
   "MINIMIZE_TO_TRAY": true,
-  "BACKGROUND_COLOR": "#f2f3f5"
+  "BACKGROUND_COLOR": "#f3f3f4",
+  "offloadAdmControls": true,
+  "enableHardwareAcceleration": true,
+  "WINDOW_BOUNDS": {
+    "x": 0,
+    "y": 0,
+    "width": 2048,
+    "height": 1280
+  },
+  "asyncVideoInputDeviceInit": false,
+  "openH264Enabled": true,
+  "DESKTOP_TTI_UPDATE_BACKOFF_MAX_MS": 10000,
+  "DESKTOP_TTI_DNSTCP_WARMUP": true,
+  "DESKTOP_TTI_EARLY_UPDATE_CHECK": true,
+  "DESKTOP_TTI_REMOVE_V8_CACHE_CLEAR": true,
+  "DESKTOP_TTI_SPLASH_USE_WEBP": true
 }
