@@ -45,21 +45,47 @@ return {
 				files = { exclude = { "node_modules", "build", "*.class" } },
 				grep = { exclude = { "node_modules", "build", "*.class" } },
 				explorer = {
-					-- Named custom action: opens Find Files on top of the explorer
-					-- without closing it (unlike the built-in "picker_files" action,
-					-- which closes the source picker once the new one shows).
+					-- Named custom actions: a raw Lua function placed directly in
+					-- win.*.keys receives the window (snacks.win), not the picker
+					-- (which exposes .main) — hence routing through a named action
+					-- in opts.actions, resolved with access to the real picker.
 					actions = {
+						-- Opens Find Files on top of the explorer without closing it
+						-- (unlike the built-in "picker_files" action, which closes
+						-- the source picker once the new one shows).
 						explorer_find_files = function()
 							Snacks.picker.files()
 						end,
+						-- Returns focus to the document window, leaving the explorer
+						-- open in the background (the picker is not closed).
+						explorer_focus_main = function(picker)
+							vim.api.nvim_set_current_win(picker.main)
+						end,
 					},
 					win = {
+						-- The explorer starts focused on the list (not the input),
+						-- but if the user opens the search box ("/" or "i") we want
+						-- the same behavior there too.
+						input = {
+							keys = {
+								["<Esc>"] = { "explorer_focus_main", mode = { "n", "i" } },
+							},
+						},
 						list = {
 							keys = {
 								-- <C-p> in the explorer defaults to "list_up" (inherited
 								-- from the base picker keymaps); here it behaves like in
 								-- a document: opens Find Files, without closing the explorer.
 								["<c-p>"] = "explorer_find_files",
+								-- <C-w>w would by default cycle all the way to the
+								-- explorer's input window (search box); here it goes
+								-- straight back to the document window, leaving the
+								-- explorer open.
+								["<c-w>w"] = "explorer_focus_main",
+								-- Esc by default closes the explorer (like any other
+								-- picker); here it just returns to the document,
+								-- leaving it open.
+								["<Esc>"] = "explorer_focus_main",
 							},
 						},
 					},
@@ -84,9 +110,9 @@ return {
 		words = { enabled = true },
 	},
 	keys = {
-		-- Explorer: sostituisce neo-tree. Si chiude con "q" o "<Esc>" come ogni
-		-- altro picker di snacks (non e' un pannello persistente come neo-tree, ma
-		-- una picker window che appare/scompare).
+		-- Explorer: replaces neo-tree. Closes with "q"; "<Esc>" instead returns
+		-- focus to the document, leaving it open in the background (see the
+		-- override in picker.sources.explorer above).
 		{ "<C-n>", function() Snacks.explorer() end, desc = "File Explorer" },
 		{ "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
 		-- Sostituiscono telescope: stesse scorciatoie (<C-p>, <leader>lg) di prima.
