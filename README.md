@@ -18,7 +18,7 @@ This repository contains configuration files for the following programs:
 - **Neovim**: A good editor
 - **oh-my-posh / starship**: Customizable prompts
 - **shellfirm**: Warnings for dangerous commands
-- **Tmux**: Terminal multiplexer
+- **Herdr**: Terminal multiplexer
 - **yazi**: Terminal file manager
 - **zoxide**: Smarter `cd` command
 - **eza**: Modern replacement for `ls`
@@ -68,18 +68,6 @@ Before proceeding with the installation, ensure the following dependencies are i
     ```
 
 ### Manual Configuration
-
-#### Tmux
-
-1. Open Tmux.
-2. Run:
-    ```bash
-    tmux source ~/tmux.conf
-    ```
-3. Install plugins by pressing:
-    ```bash
-    Ctrl + S -> I
-    ```
 
 #### Neovim
 
