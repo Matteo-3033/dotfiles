@@ -145,4 +145,24 @@ return {
 		{ "<C-p>", function() Snacks.picker.files() end, desc = "Find Files" },
 		{ "<leader>lg", function() Snacks.picker.grep() end, desc = "Live Grep" },
 	},
+	config = function(_, opts)
+		require("snacks").setup(opts)
+		-- Work around a known snacks.nvim bug (upstream issue #2634, closed as
+		-- wontfix): once an image buffer is hidden (switching to another
+		-- buffer/window) its kitty graphics placement doesn't reliably come
+		-- back when the buffer becomes visible again — the placeholder text
+		-- redraws but the actual pixels don't. Forcing a clean + reattach
+		-- (equivalent to `:edit!`, which is the workaround mentioned in the
+		-- issue) re-sends the image data and placement from scratch every
+		-- time an image buffer is re-entered.
+		vim.api.nvim_create_autocmd("BufEnter", {
+			group = vim.api.nvim_create_augroup("snacks-image-reload-fix", { clear = true }),
+			callback = function(ev)
+				if vim.bo[ev.buf].filetype == "image" then
+					Snacks.image.placement.clean(ev.buf)
+					Snacks.image.buf.attach(ev.buf)
+				end
+			end,
+		})
+	end,
 }
