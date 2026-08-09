@@ -31,7 +31,7 @@ return {
 				python = {
 					pythonPath = python_path,
 					analysis = {
-						typeCheckingMode = "strict",
+						typeCheckingMode = "off",
 						autoSearchPaths = true,
 						useLibraryCodeForTypes = true,
 						diagnosticMode = "workspace",
