@@ -56,6 +56,8 @@ Before proceeding with the installation, ensure the following dependencies are i
 - **rust**: Programming language (optional, for specific plugins)
 - **rust-analyzer**: Language server for Rust
 - **exiftool**: Metadata reader/writer
+- **resvg**: SVG rendering library
+- **colorscripts**: Collection of terminal color scripts
 
 ---
 
