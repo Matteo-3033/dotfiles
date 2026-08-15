@@ -33,6 +33,7 @@ export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/scripts
 export PATH=$PATH:$CUDA_HOME/bin
+export PATH=$PATH:$HOME/go/bin
 export MANPATH="/usr/local/man:$MANPATH"
 export EDITOR="nvim"
 export ARCHFLAGS="-arch x86_64"
