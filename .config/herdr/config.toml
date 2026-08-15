@@ -1,3 +1,5 @@
+# https://herdr.dev/docs/config-reference
+
 onboarding = false
 
 [update]
@@ -10,7 +12,7 @@ delivery = "herdr"
 [ui]
 show_agent_labels_on_pane_borders = true
 agent_panel_sort = "spaces"
-sidebar_collapsed_mode = "hidden"
+sidebar_collapsed_mode = "compact"
 prompt_new_tab_name = false
 sidebar_start_collapsed = true
 
