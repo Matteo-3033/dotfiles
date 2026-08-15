@@ -26,10 +26,12 @@ return {
 			capabilities = capabilities,
 		})
 
-		vim.lsp.config("pyright", {
+		vim.lsp.config("basedpyright", {
 			settings = {
 				python = {
 					pythonPath = python_path,
+				},
+				basedpyright = {
 					analysis = {
 						typeCheckingMode = "off",
 						autoSearchPaths = true,
@@ -43,7 +45,7 @@ return {
 		vim.lsp.enable({
 			"ts_ls",
 			"jsonls",
-			"pyright",
+			"basedpyright",
 			"lua_ls",
 			"clangd",
 		})

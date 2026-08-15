@@ -2,6 +2,9 @@ return {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
+	dependencies = {
+		"nvim-tree/nvim-web-devicons",
+	},
 	---@type snacks.Config
 	opts = {
 		bigfile = { enabled = true },
@@ -9,50 +12,126 @@ return {
 			enabled = true,
 			sections = {
 				{ section = "header" },
+				{
+					pane = 2,
+					section = "terminal",
+					cmd = "colorscript -e square",
+					height = 5,
+					padding = 1,
+				},
 				{ section = "keys", gap = 1, padding = 1 },
-				{ icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = { 2, 2 } },
+				{
+					pane = 2,
+					icon = { "", hl = "title" },
+					title = "Recent Files",
+					section = "recent_files",
+					cwd = true,
+					indent = 2,
+					padding = 1,
+				},
+				{
+					pane = 2,
+					icon = { "", hl = "title" },
+					title = "Projects",
+					section = "projects",
+					indent = 2,
+					padding = 1,
+				},
+				{
+					pane = 2,
+					icon = { "", hl = "title" },
+					title = "Git Status",
+					section = "terminal",
+					enabled = function()
+						return Snacks.git.get_root() ~= nil
+					end,
+					cmd = "git status --short --branch --renames",
+					height = 5,
+					padding = 1,
+					ttl = 5 * 60,
+					indent = 3,
+				},
 				{ section = "startup" },
 			},
 		},
 		explorer = { enabled = true },
-		-- `doc.enabled` makes snacks scan (via treesitter, asynchronously) every
-		-- open buffer looking for image links to preview at the cursor. On
-		-- Neovim 0.12 this async parsing races with the highlighter and crashes
-		-- (see the comment on indent.scope below). Actual image rendering
-		-- (:h snacks-image) stays enabled.
 		image = { enabled = true, doc = { enabled = false } },
-		-- `scope.async = false`: same as above, avoids the async treesitter
-		-- parsing that races with the highlighter and causes
-		-- "attempt to call method 'range' (a nil value)" on every file open
-		-- with a more complex parser/injection (e.g. markdown with code fences).
-		indent = { enabled = true, scope = { async = false } },
+		indent = {
+			indent = {
+				priority = 1,
+				enabled = true, -- enable indent guides
+				char = "│",
+				only_scope = false, -- only show indent guides of the scope
+				only_current = false, -- only show indent guides in the current window
+				hl = "SnacksIndent", ---@type string|string[] hl groups for indent guides
+				-- can be a list of hl groups to cycle through
+				-- hl = {
+				--     "SnacksIndent1",
+				--     "SnacksIndent2",
+				--     "SnacksIndent3",
+				--     "SnacksIndent4",
+				--     "SnacksIndent5",
+				--     "SnacksIndent6",
+				--     "SnacksIndent7",
+				--     "SnacksIndent8",
+				-- },
+			},
+			animate = {
+				enabled = vim.fn.has("nvim-0.10") == 1,
+				style = "out",
+				easing = "linear",
+				duration = {
+					step = 20, -- ms per step
+					total = 500, -- maximum duration
+				},
+			},
+			scope = {
+				enabled = true, -- enable highlighting the current scope
+				priority = 200,
+				char = "│",
+				underline = false, -- underline the start of the scope
+				only_current = false, -- only show scope in the current window
+				hl = "SnacksIndentScope", ---@type string|string[] hl group for scopes
+			},
+			chunk = {
+				-- when enabled, scopes will be rendered as chunks, except for the
+				-- top-level scope which will be rendered as a scope.
+				enabled = false,
+				-- only show chunk scopes in the current window
+				only_current = false,
+				priority = 200,
+				hl = "SnacksIndentChunk", ---@type string|string[] hl group for chunk scopes
+				char = {
+					corner_top = "┌",
+					corner_bottom = "└",
+					-- corner_top = "╭",
+					-- corner_bottom = "╰",
+					horizontal = "─",
+					vertical = "│",
+					arrow = ">",
+				},
+			},
+			-- filter for buffers to enable indent guides
+			filter = function(buf, win)
+				return vim.g.snacks_indent ~= false and vim.b[buf].snacks_indent ~= false and vim.bo[buf].buftype == ""
+			end,
+		},
 		input = { enabled = true },
 		picker = {
 			enabled = true,
 			-- replaces `vim.ui.select` (code action menu, etc.) in place of the
-			-- telescope-ui-select extension. Already true by default, made
-			-- explicit only for clarity.
+			-- telescope-ui-select extension.
 			ui_select = true,
 			-- Esc closes the picker instead of just leaving insert mode
-			-- (default behavior, see comment in snacks.picker.config.defaults).
 			win = {
 				input = { keys = { ["<Esc>"] = { "close", mode = { "n", "i" } } } },
 			},
 			sources = {
-				-- same patterns excluded by telescope (file_ignore_patterns), here
-				-- as globs passed to fd/rg instead of Lua patterns. ".git" is
-				-- already excluded by the finder by default.
+				-- ".git" is already excluded by the finder by default.
 				files = { exclude = { "node_modules", "build", "*.class" } },
 				grep = { exclude = { "node_modules", "build", "*.class" } },
 				explorer = {
-					-- Named custom actions: a raw Lua function placed directly in
-					-- win.*.keys receives the window (snacks.win), not the picker
-					-- (which exposes .main) — hence routing through a named action
-					-- in opts.actions, resolved with access to the real picker.
 					actions = {
-						-- Opens Find Files on top of the explorer without closing it
-						-- (unlike the built-in "picker_files" action, which closes
-						-- the source picker once the new one shows).
 						explorer_find_files = function()
 							Snacks.picker.files()
 						end,
@@ -62,9 +141,6 @@ return {
 							vim.api.nvim_set_current_win(picker.main)
 						end,
 						-- Closes the explorer. Overrides the default "<c-n>"
-						-- (list_down) so the global <C-n> toggle keymap
-						-- (see plugins/snacks.lua keys) also works while
-						-- focus is inside the explorer itself.
 						explorer_toggle = function(picker)
 							picker:close()
 						end,
@@ -105,45 +181,74 @@ return {
 			},
 		},
 		notifier = { enabled = true },
-		-- Disabled: quickfile forces a synchronous, unconditional
-		-- `vim.cmd("redraw")` (even for filetypes in `exclude`) before the UI
-		-- is even ready, to show the file before plugins finish loading. On
-		-- markdown files with injections (code fences, inline) this too-early
-		-- redraw triggers a crash in Neovim 0.12 core:
-		-- "attempt to call method 'range' (a nil value)" in the treesitter
-		-- highlighter — the "sea of errors" when opening a .md file. The
-		-- benefit of quickfile is purely cosmetic (shows content a fraction of
-		-- a second before plugins finish loading); normal highlighting kicks
-		-- in right after anyway, so disabling it loses nothing real.
 		quickfile = { enabled = false },
 		scope = { enabled = true },
 		scroll = { enabled = true },
 		statuscolumn = { enabled = true },
 		words = { enabled = true },
 	},
+	terminal = {
+		enabled = true,
+		bo = {
+			filetype = "snacks_terminal",
+		},
+		wo = {},
+		stack = true, -- when enabled, multiple split windows with the same position will be stacked together (useful for terminals)
+		keys = {
+			term_normal = {
+				"<esc>",
+				function(self)
+					self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
+					if self.esc_timer:is_active() then
+						self.esc_timer:stop()
+						vim.cmd("stopinsert")
+					else
+						self.esc_timer:start(200, 0, function() end)
+						return "<esc>"
+					end
+				end,
+				mode = "t",
+				expr = true,
+				desc = "Double escape to normal mode",
+			},
+		},
+	},
 	keys = {
-		-- Explorer: replaces neo-tree. Closes with "q"; "<Esc>" instead returns
-		-- focus to the document, leaving it open in the background (see the
-		-- override in picker.sources.explorer above).
-		-- <C-n> toggles: closes the explorer if it's currently focused
-		-- (list or input), opens/focuses it otherwise. Snacks.explorer()
-		-- alone only opens/focuses, it never closes.
 		{
 			"<C-n>",
 			function()
-				local explorer = Snacks.picker.get({ source = "explorer" })[1]
-				if explorer and explorer:is_focused() then
-					explorer:close()
-				else
-					Snacks.explorer()
-				end
+				Snacks.explorer()
 			end,
-			desc = "Toggle File Explorer",
+			desc = "File Explorer",
 		},
-		{ "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
-		-- Replace telescope: same shortcuts (<C-p>, <leader>lg) as before.
-		{ "<C-p>", function() Snacks.picker.files() end, desc = "Find Files" },
-		{ "<leader>lg", function() Snacks.picker.grep() end, desc = "Live Grep" },
+		{
+			"<leader>e",
+			function()
+				Snacks.explorer()
+			end,
+			desc = "File Explorer",
+		},
+		{
+			"<C-p>",
+			function()
+				Snacks.picker.files()
+			end,
+			desc = "Find Files",
+		},
+		{
+			"<leader>lg",
+			function()
+				Snacks.picker.grep()
+			end,
+			desc = "Live Grep",
+		},
+		{
+			"<leader>t",
+			function()
+				Snacks.terminal()
+			end,
+			desc = "Terminal",
+		},
 	},
 	config = function(_, opts)
 		require("snacks").setup(opts)
