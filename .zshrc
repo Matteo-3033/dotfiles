@@ -12,7 +12,9 @@ SAVEHIST=1000
 DISABLE_AUTO_TITLE="true"
 
 # System info
-DISPLAY="" fastfetch
+if [[ "$TERM_PROGRAM" != "vscode" ]]; then
+    DISPLAY="" fastfetch
+fi
 
 # zsh-newuser-install configuration
 setopt autocd beep nomatch
