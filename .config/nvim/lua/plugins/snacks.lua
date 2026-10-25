@@ -87,6 +87,8 @@ return {
 			},
 			scope = {
 				enabled = true, -- enable highlighting the current scope
+				-- Sync scope detection: avoids a treesitter/highlighter race on buffer enter that can hang/crash nvim (previously fixed, lost in a62a79f).
+				async = false,
 				priority = 200,
 				char = "│",
 				underline = false, -- underline the start of the scope
@@ -257,16 +259,55 @@ return {
 		-- buffer/window) its kitty graphics placement doesn't reliably come
 		-- back when the buffer becomes visible again — the placeholder text
 		-- redraws but the actual pixels don't. Forcing a clean + reattach
-		-- (equivalent to `:edit!`, which is the workaround mentioned in the
-		-- issue) re-sends the image data and placement from scratch every
-		-- time an image buffer is re-entered.
+		-- (equivalent to `:edit!`) re-sends the image data and placement from
+		-- scratch.
+		--
+		-- This must be debounced per-buffer: a plain BufEnter callback fires
+		-- more than once for a single "switch back to this buffer" action
+		-- (e.g. the initial FileType-driven attach plus our own BufEnter,
+		-- or repeated BufEnter from other plugins/window churn). Each
+		-- overlapping clean()+attach() cancels the previous cycle's
+		-- in-flight conversion before it can render, so the buffer gets
+		-- stuck showing the "loading …" placeholder forever. Collapsing
+		-- bursts into a single reattach, run after things settle, avoids
+		-- that race while still fixing the original disappearing-image bug.
+		local reload_timers = {} ---@type table<number, uv.uv_timer_t>
 		vim.api.nvim_create_autocmd("BufEnter", {
 			group = vim.api.nvim_create_augroup("snacks-image-reload-fix", { clear = true }),
 			callback = function(ev)
-				if vim.bo[ev.buf].filetype == "image" then
-					Snacks.image.placement.clean(ev.buf)
-					Snacks.image.buf.attach(ev.buf)
+				if vim.bo[ev.buf].filetype ~= "image" then
+					return
 				end
+				local timer = reload_timers[ev.buf]
+				if timer and not timer:is_closing() then
+					timer:stop()
+					timer:close()
+				end
+				timer = (vim.uv or vim.loop).new_timer()
+				reload_timers[ev.buf] = timer
+				timer:start(
+					50,
+					0,
+					vim.schedule_wrap(function()
+						timer:stop()
+						timer:close()
+						reload_timers[ev.buf] = nil
+						if not vim.api.nvim_buf_is_valid(ev.buf) or vim.bo[ev.buf].filetype ~= "image" then
+							return
+						end
+						Snacks.image.placement.clean(ev.buf)
+						-- clean() asks the terminal to delete the image, but snacks keeps
+						-- `img.sent = true`, so the following attach only re-places a
+						-- now-missing image: it flashes (or never shows) and vanishes.
+						-- herdr's own kitty graphics store makes this deterministic.
+						-- Mark it unsent so the data is transmitted again.
+						local ok, img = pcall(Snacks.image.image.new, vim.api.nvim_buf_get_name(ev.buf))
+						if ok and img then
+							img.sent = false
+						end
+						Snacks.image.buf.attach(ev.buf)
+					end)
+				)
 			end,
 		})
 	end,
