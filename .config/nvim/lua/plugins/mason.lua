@@ -20,7 +20,7 @@ return {
             "json-lsp",
             "lua-language-server",
             "markuplint",
-            "pyright",
+            "basedpyright",
             "stylelint",
             "typescript-language-server",
             "sleek",

@@ -6,31 +6,18 @@ return {
 	config = function()
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-		local function get_python_path()
-			local handle = io.popen("pyenv which python 2>/dev/null")
-			if handle then
-				local result = handle:read("*a")
-				handle:close()
-				if result and result ~= "" then
-					return result:gsub("%s+$", "")
-				end
-			end
-
-			local venv = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX") or "/usr"
-			return venv .. "/bin/python"
-		end
-
-		local python_path = get_python_path()
-
 		vim.lsp.config("*", {
 			capabilities = capabilities,
 		})
 
 		vim.lsp.config("basedpyright", {
+			-- resolved per project, when the server starts
+			before_init = function(_, config)
+				config.settings = config.settings or {}
+				config.settings.python = config.settings.python or {}
+				config.settings.python.pythonPath = require("python-path").get(config.root_dir)
+			end,
 			settings = {
-				python = {
-					pythonPath = python_path,
-				},
 				basedpyright = {
 					analysis = {
 						typeCheckingMode = "off",
